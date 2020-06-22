@@ -1,0 +1,31 @@
+#! /bin/sh
+
+sxhkd &
+$HOME/.config/polybar/launch.sh
+
+bspc monitor DP-0 -d vm leftbrowser spotify
+bspc monitor DP-2 -d code mainbrowser mainstuff mainstuff2
+bspc monitor DP-6 -d rightbrowser rightstuff rightstuff2
+
+bspc config border_width         2
+bspc config active_border_color "#880e4f"
+bspc config focused_border_color "#E91E63"
+
+bspc config window_gap          12
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Chromium desktop='^2'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+bspc rule -a virtualbox state=floating
+
+# Mouse settings
+xinput --set-prop 10 "Device Accel Velocity Scaling" 1 # Disable acceleration
+
+# Wallpaper
+feh --bg-fill ~/Pictures/LTT_RGB_4K.jpg
