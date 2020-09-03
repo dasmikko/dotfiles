@@ -1,11 +1,12 @@
 #! /bin/sh
 
+picom &
 sxhkd &
 $HOME/.config/polybar/launch.sh
 
-bspc monitor DP-0 -d vm leftbrowser spotify
-bspc monitor DP-2 -d code mainbrowser mainstuff mainstuff2
-bspc monitor DP-6 -d rightbrowser rightstuff rightstuff2
+bspc monitor DP-0 -d vm browser spotify
+bspc monitor DP-2 -d code browser terminal stuff
+bspc monitor DP-6 -d browser terminal chat
 
 bspc config border_width         2
 bspc config active_border_color "#880e4f"
@@ -20,12 +21,15 @@ bspc config gapless_monocle      true
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Chromium desktop='^2'
 bspc rule -a mplayer2 state=floating
+bspc rule -a ssh-askpass state=floating
+bspc rule -a "ssh-askpass" state=floating
+bspc rule -a "Ssh-askpass" state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 bspc rule -a 'VirtualBox Manager' desktop='^1' 
 bspc rule -a jetbrains-webstorm desktop='^4' 
 bspc rule -a 'Microsoft Teams - Preview' desktop='^10' 
-bspc rule -a Spotify desktop='^3' 
+bspc rule -a 'Spotify' desktop='^3' 
 
 # Mouse settings
 xinput --set-prop 10 "Device Accel Velocity Scaling" 1 # Disable acceleration
