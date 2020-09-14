@@ -36,3 +36,6 @@ xinput --set-prop 10 "Device Accel Velocity Scaling" 1 # Disable acceleration
 
 # Wallpaper
 feh --bg-fill ~/Pictures/LTT_RGB_4K.jpg
+
+# Start SSH Agent
+ssh-agent
