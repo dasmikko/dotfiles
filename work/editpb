@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+
+kwrite ~/.config/polybar/config.ini
