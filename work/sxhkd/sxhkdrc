@@ -6,9 +6,17 @@
 super + F1
 	~/.config/sxhkd/show_help.sh &
 
+# show powermenu
+super + p
+	~/.config/sxhkd/powermenu.sh &	
+	
+# show server menu
+super + o
+	~/.config/sxhkd/connect.sh &	
+	
 # terminal emulator
 super + Return
-	gnome-terminal
+	"$TERMINAL"
 
 # program launcher
 super + @space
@@ -25,6 +33,11 @@ super + Escape
 # Region screenshot
 super + Print
 	ksnapshot --region
+	
+# Lock desktop
+super + l
+  dbus-send --type=method_call --dest=org.gnome.ScreenSaver \
+    /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
 
 #
 # media keys
@@ -41,13 +54,13 @@ XF86AudioPrev
 	dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 
 XF86AudioRaiseVolume
-	amixer -D pulse sset Master 2%+
+	amixer -D pulse sset Master 5%+ & ~/.config/sxhkd/volNotification.sh
 	
 XF86AudioLowerVolume
-	amixer -D pulse sset Master 2%-
+	amixer -D pulse sset Master 5%- & ~/.config/sxhkd/volNotification.sh
 
 XF86AudioMute
-	amixer -D pulse set Master 1+ toggle
+	amixer -D pulse set Master 1+ toggle > /dev/null & ~/.config/sxhkd/volNotification.sh
 	
 	
 #
@@ -107,14 +120,14 @@ super + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
-super + {grave,Tab}
-	bspc {node,desktop} -f last
+#super + {grave,Tab}
+#	bspc {node,desktop} -f last
 
 # focus the older or newer node in the focus history
-super + {o,i}
-	bspc wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h on
+#super + {o,i}
+	#bspc wm -h off; \
+	#bspc node {older,newer} -f; \
+	#bspc wm -h on
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
@@ -133,13 +146,17 @@ super + ctrl + {1-9}
 	bspc node -o 0.{1-9}
 
 # cancel the preselection for the focused node
-super + ctrl + space
+super + shift + space
 	bspc node -p cancel
 
 # cancel the preselection for the focused desktop
 super + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
+super + Tab
+	bspc node -f @parent; bspc node -R 90; bspc node -f last
+	
+	
 #
 # move/resize
 #

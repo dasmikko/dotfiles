@@ -1,9 +1,36 @@
 #! /bin/sh
 
+#
+# ENV vars
+#
+
+# Set default terminal
+export TERMINAL="alacritty"
+
+
+# compositor, keys and polybar
 picom &
 sxhkd &
-$HOME/.config/polybar/launch.sh
+$HOME/.config/polybar/launch.sh &
 
+# Mouse settings
+xinput --set-prop 10 "Device Accel Velocity Scaling" 1 # Disable acceleration WORK
+#xinput --set-prop 9 "Device Accel Velocity Scaling" 1 & # Disable acceleration HOME
+
+# Wallpaper
+feh --bg-fill ~/Pictures/LTT_RGB_4K.jpg &
+
+# Start SSH Agent
+ssh-agent &
+
+# Start Gnome screensaver
+gnome-screensaver &
+
+# Set primary screensaver￼
+xrandr --output DP-0 --mode 1920x1080 --pos 0x120 --rotate normal --output DP-1 --off --output DP-2 --primary --mode 1920x1200 --pos 1920x0 --rotate normal --output DP-3 --off --output DP-4 --off --output DP-5 --off --output DP-6 --mode 1920x1200 --pos 3840x0 --rotate normal --output DP-7 --off
+
+
+#bspwm config
 bspc monitor DP-0 -d vm browser spotify
 bspc monitor DP-2 -d code browser terminal stuff
 bspc monitor DP-6 -d browser terminal chat
@@ -15,8 +42,8 @@ bspc config focused_border_color "#E91E63"
 bspc config window_gap          12
 
 bspc config split_ratio          0.52
-bspc config borderless_monocle   true
-bspc config gapless_monocle      true
+bspc config borderless_monocle   false
+bspc config gapless_monocle      false
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Chromium desktop='^2'
@@ -29,13 +56,4 @@ bspc rule -a Screenkey manage=off
 bspc rule -a 'VirtualBox Manager' desktop='^1' 
 bspc rule -a jetbrains-webstorm desktop='^4' 
 bspc rule -a 'Microsoft Teams - Preview' desktop='^10' 
-bspc rule -a 'Spotify' desktop='^3' 
-
-# Mouse settings
-xinput --set-prop 10 "Device Accel Velocity Scaling" 1 # Disable acceleration
-
-# Wallpaper
-feh --bg-fill ~/Pictures/LTT_RGB_4K.jpg
-
-# Start SSH Agent
-ssh-agent
+bspc rule -a 'Spotify' desktop='^3' t
